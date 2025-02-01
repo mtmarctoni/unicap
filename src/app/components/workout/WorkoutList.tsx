@@ -4,8 +4,14 @@ import WorkoutCard from './WorkoutCard'
 
 export default function WorkoutList() {
     const [workouts, setWorkouts] = useState([
-        { id: 1, name: 'Full Body Workout', duration: '45 minutes', difficulty: 'Intermediate' },
-        { id: 2, name: 'Cardio Blast', duration: '30 minutes', difficulty: 'Beginner' },
+        {
+            id: 1, name: 'Full Body Workout', duration: '45 minutes', difficulty: 'Intermediate',
+            exercises: [
+                { name: 'Push-ups', sets: 3, reps: 10 },
+                { name: 'Squats', sets: 3, reps: 15 },
+                { name: 'Plank', sets: 3, reps: 30 },]
+        },
+        { id: 2, name: 'Cardio Blast', duration: '30 minutes', difficulty: 'Beginner', exercises: [] },
         // Add more sample workouts as needed
     ]);
 

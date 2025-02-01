@@ -2,15 +2,19 @@ import { ArchiveBoxXMarkIcon, EllipsisVerticalIcon, PencilIcon, Square2StackIcon
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 import { Workout } from '@/app/types/workout';
-import DarkThemeToggle from '../features/DarkThemeToggle';
+import Link from 'next/link';
 
 interface Props{
     workout: Workout;
 }
 
 export default function WorkoutCard({ workout }: Props) {
-    return (
-      <div className="bg-surface shadow-lg rounded-xl p-6 relative text-text">
+  return (
+    <Link 
+      href={`/workouts/${workout.id}`}
+      className="bg-background-alt shadow-lg rounded-xl p-6 relative text-text"
+    >
+      <div className="">
             <Menu as="div" className="absolute top-2 right-2">
                 <MenuButton className="inline-flex items-center">
                     <EllipsisVerticalIcon className="h-5 w-5 text-muted" aria-hidden="true" />
@@ -49,8 +53,10 @@ export default function WorkoutCard({ workout }: Props) {
                 </Menu>
             
                 <h2 className="text-xl font-semibold mb-2 text-text-dark">{workout.name}</h2>
-            <p className="text-muted mb-1">Duration: {workout.duration}</p>
-            <p className="text-muted">Difficulty: {workout.difficulty}</p>
-        </div>
+            <p className="text-muted">Duration: <span className="text-text">{workout.duration}</span></p>
+            <p className="text-muted">Difficulty: <span className="text-text">{workout.difficulty}</span></p>
+      </div>
+    </Link>
+      
     );
 };
