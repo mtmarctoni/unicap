@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
-import WorkoutList from '../components/workout/WorkoutList';
-import DarkThemeToggle from '../components/features/DarkThemeToggle';
+import WorkoutList from '../../components/workout/WorkoutList';
+import DarkThemeToggle from '../../components/features/DarkThemeToggle';
 
 export default function WorkoutPage() {
     return (

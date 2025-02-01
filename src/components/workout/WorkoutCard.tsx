@@ -1,7 +1,7 @@
 import { ArchiveBoxXMarkIcon, EllipsisVerticalIcon, PencilIcon, Square2StackIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
-import { Workout } from '@/app/types/workout';
+import { Workout } from '@/types/workout';
 import Link from 'next/link';
 
 interface Props{

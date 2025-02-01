@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { Workout } from '@/app/types/workout';
+import { Workout } from '@/types/workout';
 
 export default function WorkoutDetailPage() {
     const router = useRouter();

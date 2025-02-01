@@ -1,4 +1,4 @@
-import DarkThemeToggle from "./components/features/DarkThemeToggle";
+import DarkThemeToggle from "../components/features/DarkThemeToggle";
 
 export default function Home() {
   return (
