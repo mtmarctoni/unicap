@@ -10,7 +10,7 @@ export async function getAllWorkouts() {
 
 export async function getWorkoutById(id: string) {
   await dbConnect();
-  return WorkoutModel.findById(id);
+  return WorkoutModel.findById(id).populate('exercises');
 }
 
 export async function createWorkout(workoutData: Workout) {

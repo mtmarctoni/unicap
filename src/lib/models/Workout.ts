@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, Types, model, models } from 'mongoose';
 
 interface IWorkout {
   name: string;
@@ -14,10 +14,10 @@ const WorkoutSchema = new Schema<IWorkout>({
   },
   duration: String,
   difficulty: String,
-  exercises: {
+  exercises: [{
     type: Types.ObjectId,
     ref: 'Exercise',
-  },
+  }],
 });
 
 WorkoutSchema.set('toJSON', {
@@ -28,4 +28,7 @@ WorkoutSchema.set('toJSON', {
     },
 })
 
-export default model('Workout', WorkoutSchema);
+// Check if the model already exists
+const Workout = models.Workout || model('Workout', WorkoutSchema);
+
+export default Workout;

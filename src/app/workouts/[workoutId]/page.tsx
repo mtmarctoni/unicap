@@ -1,24 +1,25 @@
-import { useRouter } from 'next/router';
+"use client"
+import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Workout } from '@/types/workout';
+import { SkeletonWorkoutDetail } from '@/components/workout/SkeletonWorkoutDetail';
 
 export default function WorkoutDetailPage() {
-    const router = useRouter();
-    const { wrokoutId } = router.query;
+    const {workoutId} = useParams();
     const [workout, setWorkout] = useState<Workout | null>(null);
 
     useEffect(() => {
-        if (wrokoutId) {
+        if (workoutId) {
             // Fetch workout data based on id
             // This is a placeholder. Replace with your actual data fetching logic
-            fetch(`/api/workouts/${wrokoutId}`)
+            fetch(`/api/workouts/${workoutId}`)
                 .then(response => response.json())
                 .then(data => setWorkout(data));
         }
-    }, [wrokoutId]);
+    }, [workoutId]);
 
     if (!workout) {
-        return <div>Loading...</div>;
+        return <SkeletonWorkoutDetail />;
     }
 
     return (
@@ -29,6 +30,7 @@ export default function WorkoutDetailPage() {
             
             <h2 className="text-2xl font-semibold mb-4 text-secondary">Exercises</h2>
             <ul className="space-y-4">
+                {/* {JSON.stringify(workout.exercises)} */}
                 {workout.exercises.map((exercise, index) => (
                     <li key={index} className="bg-surface p-4 rounded-lg shadow">
                         <h3 className="text-lg font-medium mb-2">{exercise.name}</h3>

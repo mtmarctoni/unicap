@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+import {Schema, model, models} from 'mongoose';
 
-import { Exercise } from '@/types/workout';
+import { type Exercise } from '@/types/workout';
 
-const ExerciseSchema = new mongoose.Schema<Exercise>(
+const ExerciseSchema = new Schema<Exercise>(
     {
         name: {
             type: String,
@@ -27,4 +27,7 @@ ExerciseSchema.set('toJSON', {
     },
 })
 
-export default mongoose.model('Exercise', ExerciseSchema)
+// Check if the model already exists
+const Exercise = models?.Exercise || model('Exercise', ExerciseSchema);
+
+export default Exercise;
