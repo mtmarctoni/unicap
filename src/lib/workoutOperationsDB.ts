@@ -29,13 +29,20 @@ export async function deleteWorkout(id: string) {
   return WorkoutModel.findByIdAndDelete(id);
 }
 
-export async function addExerciseToWorkout(workoutId: string, exerciseData: Exercise) {
+export async function addExercisesToWorkout(workoutId: string, exerciseIds: Exercise) {
   await dbConnect();
   return WorkoutModel.findByIdAndUpdate(
     workoutId,
-    { $push: { exercises: exerciseData } },
-    { new: true }
-  );
+    {
+      $addToSet: {  // Prevents duplicates
+        exercises: { $each: exerciseIds }
+      }
+    },
+    { 
+      new: true,
+      runValidators: true
+    }
+  ).populate('exercises');
 };
 
 export async function removeExerciseFromWorkout(workoutId: string, exerciseId: string) {

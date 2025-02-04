@@ -1,6 +1,6 @@
 import dbConnect from '@/lib/mongodb';
 import ExerciseModel from '@/lib/models/Exercise';
-import { type NewExercise, type Exercise } from '@/types/workout';
+import { type NewExercise } from '@/types/workout';
 
 // Database Operations
 export async function getAllExercises() {
@@ -19,9 +19,9 @@ export async function createExercise(exerciseData: NewExercise) {
   return exercise.save({new: true});
 }
 
-export async function updateExercise(id: string, updateData: Exercise) {
+export async function updateExercise(id: string, updateData: NewExercise) {
   await dbConnect();
-  return ExerciseModel.findByIdAndUpdate(id, updateData, { new: true });
+  return ExerciseModel.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
 }
 
 export async function deleteExercise(id: string) {

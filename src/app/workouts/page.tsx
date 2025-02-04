@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import WorkoutList from '../../components/workout/WorkoutList';
-import DarkThemeToggle from '../../components/features/DarkThemeToggle';
+// import DarkThemeToggle from '../../components/features/DarkThemeToggle';
 
 export default function WorkoutPage() {
     return (
@@ -10,10 +10,6 @@ export default function WorkoutPage() {
                 <title>Workout Routines</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <nav className="bg-background">
-                <DarkThemeToggle />
-            </nav>
-
             <main className="py-10">
                 <h1 className="text-4xl font-bold mb-8 text-text">Workout Routines</h1>
                 <WorkoutList />

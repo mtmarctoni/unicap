@@ -2,16 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 
 import ExerciseMenuButton from "./ExerciseMenuButton";
-import { type Exercise } from "@/types/workout";
+import { type NewExercise, type Exercise } from "@/types/workout";
 import { DEFAULT_IMAGE_URL } from "@/config/default.config";
 import { BoltIcon } from "@heroicons/react/20/solid";
 
 interface Props {
   exercise: Exercise;
-  handleDelete: (id: string) => void;
+  handleDelete?: (id: string) => void;
+  handleEdit?: (id: string) => void;
+  handleDuplicate?: (newExercise: NewExercise) => void;
 }
 
-export default function ExerciseCard({ exercise, handleDelete }: Props) {
+export default function ExerciseCard({ exercise, handleDelete, handleEdit, handleDuplicate }: Props) {
   return (
     <div className="group relative bg-surface rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
       <Link
@@ -63,7 +65,12 @@ export default function ExerciseCard({ exercise, handleDelete }: Props) {
           </div>
         </div>
       </Link>
-      <ExerciseMenuButton exercise={exercise} handleDelete={handleDelete} />
+      {handleEdit && handleDuplicate && handleDelete && 
+        <ExerciseMenuButton exercise={exercise}
+          handleEdit={handleEdit}
+          handleDuplicate={handleDuplicate}
+          handleDelete={handleDelete} />
+      }
     </div>
   );
 }

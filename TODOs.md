@@ -1,9 +1,8 @@
-- finish features /exercises page
-    - edit
-    - update exercise form with weight
-
-- add the same features (except create) in [exerciseId] pages
-- add navbar with darkmode option (we can try to set a bottom navbar with main simple buttons: darkmode, exercises, workouts)
+PRIMARIES
+- in workouts, enable to delete exercises (add 'remove from workout' option in the menu)
+- update '<- back to exercises' in exercise page to router.back() or router.push('exercise') si no hay back
+- refactor [workoutId] page, extract the dialog and extract the logic with custom hook
+- when selecting exercise to add to workout, improve the way they are selected, maybe changing the ExerciseCard to a smaller one that permits to list hem easili (ex: create a 'SelectedExerciseCard' maybe)
 
 
 SECONDARIES

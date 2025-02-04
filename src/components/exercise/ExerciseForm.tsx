@@ -93,7 +93,7 @@ export default function ExerciseForm({
                     <Button
                         type="button"
                         onClick={onCancel}
-                        className="inline-flex items-center rounded-lg px-4 py-2 text-sm font-medium text-text dark:text-text-dark hover:bg-muted/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 transition-colors"
+                        className="inline-flex items-center rounded-lg px-4 py-2 text-sm font-medium text-text hover:bg-muted/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 transition-colors"
                     >
                         Cancel
                     </Button>

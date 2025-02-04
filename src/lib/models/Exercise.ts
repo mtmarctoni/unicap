@@ -1,8 +1,14 @@
 import {Schema, model, models} from 'mongoose';
 
-import { type Exercise } from '@/types/workout';
+interface IExercise {
+    name: string;
+    sets: number;
+    reps: number;
+    weight?: number;
+    imageUrl?: string;
+}
 
-const ExerciseSchema = new Schema<Exercise>(
+const ExerciseSchema = new Schema<IExercise>(
     {
         name: {
             type: String,
@@ -15,6 +21,14 @@ const ExerciseSchema = new Schema<Exercise>(
         reps: {
             type: Number,
             required: true
+        },
+        weight: {
+            type: Number,
+            required: false
+        },
+        imageUrl: {
+            type: String,
+            required: false
         }
     }
 );
