@@ -1,3 +1,4 @@
+import { WorkoutDay } from '@/types/workout';
 import {Schema, model, models} from 'mongoose';
 
 interface IExercise {
@@ -6,6 +7,7 @@ interface IExercise {
     reps: number;
     weight?: number;
     imageUrl?: string;
+    days?: string[];
 }
 
 const ExerciseSchema = new Schema<IExercise>(
@@ -29,7 +31,14 @@ const ExerciseSchema = new Schema<IExercise>(
         imageUrl: {
             type: String,
             required: false
-        }
+        },
+        days: [
+            {
+                type: String,
+                enum: Object.values(WorkoutDay),
+                required: false
+            }
+        ]
     }
 );
 

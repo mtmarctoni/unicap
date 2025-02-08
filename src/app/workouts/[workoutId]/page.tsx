@@ -1,12 +1,13 @@
 "use client"
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { ExerciseId, type Exercise, type Workout } from '@/types/workout';
+import { ExerciseByDay, ExerciseId, WorkoutDay, type Exercise, type Workout } from '@/types/workout';
 import { SkeletonWorkoutDetail } from '@/components/workout/SkeletonWorkoutDetail';
 import ExerciseList from '@/components/exercise/ExerciseList';
 import { PlusIcon, ClockIcon, ChartBarIcon, CheckIcon } from '@heroicons/react/24/outline';
 import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import ExerciseCard from '@/components/exercise/ExerciseCard';
+import Calendar from '@/components/workout/ExerciseCalendar';
 
 export default function WorkoutDetailPage() {
     const { workoutId } = useParams();
@@ -14,6 +15,8 @@ export default function WorkoutDetailPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [allExercises, setAllExercises] = useState<Exercise[]>([]);
     const [selectedExercises, setSelectedExercises] = useState<ExerciseId[]>([]);
+    const [selectedDay, setSelectedDay] = useState<WorkoutDay | null>(null);
+
 
     useEffect(() => {
         if (workoutId) {
@@ -48,9 +51,36 @@ export default function WorkoutDetailPage() {
         }
     };
 
-    if (!workout) {
-        return <SkeletonWorkoutDetail />;
-    }
+// Prepare exercise data for the calendar.  Use a type-safe approach.
+        const exercisesByDay: ExerciseByDay = {
+            [WorkoutDay.MONDAY]: [],
+            [WorkoutDay.TUESDAY]: [],
+            [WorkoutDay.WEDNESDAY]: [],
+            [WorkoutDay.THURSDAY]: [],
+            [WorkoutDay.FRIDAY]: [],
+            [WorkoutDay.SATURDAY]: [],
+            [WorkoutDay.SUNDAY]: [],
+        };
+        
+            workout?.exercises.forEach(exercise => {
+                exercise.days?.forEach(day => {
+                        exercisesByDay[day].push(exercise);
+                });
+            });
+    
+
+    const filteredExercises: Exercise[] = (
+        selectedDay
+            ? workout?.exercises.filter((ex: Exercise) => {
+                const days = ex.days || [];
+                return selectedDay && days.includes(selectedDay)
+            })
+            : workout?.exercises
+        ) || [];
+        
+        if (!workout) {
+            return <SkeletonWorkoutDetail />;
+        }
 
     return (
         <div className="container mx-auto px-4 py-8 space-y-8">
@@ -91,7 +121,15 @@ export default function WorkoutDetailPage() {
                             </p>
                         </div>
                     </div>
-                </div>
+            </div>
+            
+            
+        {/* Calendar Section */}
+            <Calendar
+                exercises={exercisesByDay}
+                selectedDay={selectedDay}
+                setSelectedDay={setSelectedDay}
+            />
 
             {/* Exercises Section */}
                 <div className="flex items-center justify-between mb-6">
@@ -103,15 +141,20 @@ export default function WorkoutDetailPage() {
                     </span>
                 </div>
 
-                {workout.exercises.length > 0 ? (
-                    <ExerciseList exercises={workout.exercises} />
+                {/* {workout.exercises.length > 0 ? ( */}
+                {filteredExercises.length > 0 ? (
+                    // <ExerciseList exercises={workout.exercises} />
+                    <ExerciseList exercises={filteredExercises} />
                 ) : (
                     <div className="text-center py-12">
                         <p className="text-muted mb-4">
-                            No exercises added yet
+                            No exercises added {selectedDay ? `for ${selectedDay}` : ''} yet
                         </p>
                         <Button
-                            onClick={handleAddExercises}
+                            onClick={() => {
+                                setIsModalOpen(true);
+                                fetchExercises();
+                                }}
                             className="text-primary hover:text-primary-dark flex items-center gap-2 mx-auto"
                         >
                             <PlusIcon className="w-5 h-5" />

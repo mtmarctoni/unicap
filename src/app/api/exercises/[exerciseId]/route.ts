@@ -20,6 +20,7 @@ export async function DELETE(request: Request, { params }: { params: { exerciseI
 
 export async function PUT(request: Request, { params }: { params: { exerciseId: string } }) {
     await dbConnect();
+    
     const { exerciseId } = await params;
     const exerciseToUpdate = await request.json();
     const updatedExercise = await updateExercise(exerciseId, exerciseToUpdate);

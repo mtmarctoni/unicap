@@ -48,7 +48,7 @@ export default function ExercisePageDetail() {
     }
     };
     
-    const handleUpdate = async (updatedData: NewExercise) => {
+  const handleUpdate = async (updatedData: NewExercise) => {
         try {
           const response = await fetch(`/api/exercises/${exerciseId}`, {
             method: 'PUT',
@@ -76,11 +76,11 @@ export default function ExercisePageDetail() {
     <div className="min-h-screen bg-background dark:bg-background-dark">
     <div className="container mx-auto px-4 py-8">
       <button
-        onClick={() => router.push('/exercises')}
+        onClick={() => router.back()}
         className="mb-6 flex items-center text-muted dark:text-muted-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
       >
         <ArrowLeftIcon className="w-5 h-5 mr-2" />
-        Back to Exercises
+        Back
       </button>
 
       {!isEditing ? (
@@ -129,8 +129,14 @@ export default function ExercisePageDetail() {
                 <p className="text-2xl font-bold text-tertiary">
                   {exercise.weight ? `${exercise.weight} kg` : 'N/A'}
                 </p>
-              </div>
+                  </div>
             </div>
+                  <div className="mx-auto my-4 flex justify-center">
+            <div className="flex items-center gap-2">
+              <span className="text-muted">Days:</span>
+              <span className="font-medium">{exercise.days?.join(', ') || 'N/A'}</span>
+            </div>
+          </div>
           </div>
         </div>
       ) : (

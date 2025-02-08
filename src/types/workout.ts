@@ -7,6 +7,15 @@ export type ExerciseName = string;
 export type ExerciseSets = number;
 export type ExerciseReps = number;
 export type ExerciseWeight = number;
+export enum WorkoutDay { 
+    MONDAY = "Monday",
+    TUESDAY = "Tuesday",
+    WEDNESDAY = "Wednesday",
+    THURSDAY = "Thursday",
+    FRIDAY = "Friday",
+    SATURDAY = "Saturday",
+    SUNDAY = "Sunday",
+};
 export interface Exercise {
     id: ExerciseId;
     name: ExerciseName;
@@ -14,6 +23,7 @@ export interface Exercise {
     reps: ExerciseReps;
     weight?: ExerciseWeight;
     imageUrl?: string;
+    days?: WorkoutDay[];
 }
 export interface NewExercise {
     name: ExerciseName;
@@ -21,6 +31,7 @@ export interface NewExercise {
     reps: ExerciseReps;
     weight?: ExerciseWeight;
     imageUrl?: string;
+    days?: WorkoutDay[];
 }
 
 export interface Workout {
@@ -30,3 +41,5 @@ export interface Workout {
     difficulty: WorkoutDifficulty;
     exercises: Exercise[];
 }
+
+export type ExerciseByDay = { [day in WorkoutDay]: Exercise[] };

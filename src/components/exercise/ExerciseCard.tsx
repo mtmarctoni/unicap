@@ -5,6 +5,7 @@ import ExerciseMenuButton from "./ExerciseMenuButton";
 import { type NewExercise, type Exercise } from "@/types/workout";
 import { DEFAULT_IMAGE_URL } from "@/config/default.config";
 import { BoltIcon } from "@heroicons/react/20/solid";
+import { usePathname } from "next/navigation";
 
 interface Props {
   exercise: Exercise;
@@ -14,6 +15,10 @@ interface Props {
 }
 
 export default function ExerciseCard({ exercise, handleDelete, handleEdit, handleDuplicate }: Props) {
+  const pathName = usePathname();
+  const isWorkout = pathName.includes('/workouts');
+
+
   return (
     <div className="group relative bg-surface rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
       <Link
@@ -35,7 +40,14 @@ export default function ExerciseCard({ exercise, handleDelete, handleEdit, handl
           <h2 className="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">
             {exercise.name}
           </h2>
-        </div>
+          </div>
+          
+          {isWorkout && <div className="my-4 flex justify-center">
+            <div className="flex items-center gap-2">
+              <span className="text-muted">Days:</span>
+              <span className="font-medium">{exercise.days?.join(', ') || 'N/A'}</span>
+            </div>
+          </div>}
 
         <div className="my-4 flex justify-center">
           <div className="flex items-center gap-2">

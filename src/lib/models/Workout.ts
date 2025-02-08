@@ -1,4 +1,5 @@
 import { Schema, Types, model, models } from 'mongoose';
+import Exercise from './Exercise';
 
 interface IWorkout {
   name: string;

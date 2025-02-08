@@ -6,17 +6,13 @@ import ExerciseList from '@/components/exercise/ExerciseList';
 import ExerciseForm from '@/components/exercise/ExerciseForm';
 import { type Exercise, type NewExercise } from '@/types/workout';
 import { useRouter } from 'next/navigation';
+import { initialFormData } from '@/config/default.config';
 
 export default function ExercisesPage() {
     const router = useRouter();
     const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
     const [exercises, setExercises] = useState<Exercise[] | null>(null);
-    const [formData, setFormData] = useState<NewExercise>({
-        name: '',
-        sets: 4,
-        reps: 10,
-        weight: 0
-    });
+    const [formData, setFormData] = useState<NewExercise>(initialFormData);
       
         useEffect(() => {
             fetch(`/api/exercises/`)
@@ -53,6 +49,7 @@ export default function ExercisesPage() {
                 } else {
                     setExercises([exercise])
                 }
+                setFormData(initialFormData);
 
             }
         } catch (error) {
@@ -98,10 +95,10 @@ export default function ExercisesPage() {
             </h1>
             {!isFormOpen && <button
                       onClick={()=>setIsFormOpen(!isFormOpen)}
-                    className={`${isFormOpen ? 'bg-red-500 hover:bg-red-200' : 'bg-primary hover:bg-primary-dark'} inline-flex items-center px-6 py-3 text-white font-medium rounded-lg transition-colors duration-200 ease-in-out cursor-pointer`}
+                    className={`${isFormOpen ? 'bg-red-500 hover:bg-red-200' : 'bg-primary hover:bg-primary-dark'} inline-flex items-center px-6 py-3 text-white font-medium rounded-lg duration-200 ease-in-out cursor-pointer transition-all`}
                     >
                           <PlusIcon className="w-6 h-6 mr-2" stroke="currentColor" />
-                          Add Exercise                               
+                          Create Exercise                               
                     {/* 
                       {isFormOpen
                           ? <>
@@ -118,8 +115,10 @@ export default function ExercisesPage() {
                           }
           </div>
       
-          {/* Exercise Form */}
-          <div className={`m-8 overflow-hidden transition-all duration-500 ease-in-out ${isFormOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+          {/* Exercise Form */}.
+                <div
+                    className={`m-8 transition-all duration-500 ease-in-out ${isFormOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
+                >
             <ExerciseForm
               handleSubmit={handleSubmit}
               onCancel={() => setIsFormOpen(false)}
