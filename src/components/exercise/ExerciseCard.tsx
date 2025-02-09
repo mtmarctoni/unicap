@@ -6,15 +6,17 @@ import { type NewExercise, type Exercise } from "@/types/workout";
 import { DEFAULT_IMAGE_URL } from "@/config/default.config";
 import { BoltIcon } from "@heroicons/react/20/solid";
 import { usePathname } from "next/navigation";
+import RemoveOptionButton from "../workout/RemoveOptionButton";
 
 interface Props {
   exercise: Exercise;
   handleDelete?: (id: string) => void;
   handleEdit?: (id: string) => void;
   handleDuplicate?: (newExercise: NewExercise) => void;
+  handleRemove?: (id: string) => void;
 }
 
-export default function ExerciseCard({ exercise, handleDelete, handleEdit, handleDuplicate }: Props) {
+export default function ExerciseCard({ exercise, handleDelete, handleEdit, handleDuplicate, handleRemove }: Props) {
   const pathName = usePathname();
   const isWorkout = pathName.includes('/workouts');
 
@@ -28,7 +30,7 @@ export default function ExerciseCard({ exercise, handleDelete, handleEdit, handl
       <div className="aspect-w-16 aspect-h-9 w-full">
       <Image
         src={exercise.imageUrl || DEFAULT_IMAGE_URL}
-        alt={exercise.name}
+        alt={exercise.name || 'Default exercise image'}
         width={300}
         height={200}
         className="w-full h-auto object-cover rounded-t-2xl"
@@ -82,6 +84,12 @@ export default function ExerciseCard({ exercise, handleDelete, handleEdit, handl
           handleEdit={handleEdit}
           handleDuplicate={handleDuplicate}
           handleDelete={handleDelete} />
+      }
+      {handleRemove && <RemoveOptionButton
+        handleRemove={handleRemove}
+        exercise={exercise}
+      />
+
       }
     </div>
   );

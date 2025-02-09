@@ -1,6 +1,8 @@
 import dbConnect from '@/lib/mongodb';
 import WorkoutModel from '@/lib/models/Workout';
-import { type Exercise, type Workout } from '@/types/workout';
+import ExerciseModel from '@/lib/models/Exercise';
+import { type ExerciseId, type Workout } from '@/types/workout';
+import mongoose from 'mongoose';
 
 // Database Operations
 export async function getAllWorkouts() {
@@ -29,7 +31,7 @@ export async function deleteWorkout(id: string) {
   return WorkoutModel.findByIdAndDelete(id);
 }
 
-export async function addExercisesToWorkout(workoutId: string, exerciseIds: Exercise) {
+export async function addExercisesToWorkout(workoutId: string, exerciseIds: ExerciseId[]) {
   await dbConnect();
   return WorkoutModel.findByIdAndUpdate(
     workoutId,
@@ -45,12 +47,19 @@ export async function addExercisesToWorkout(workoutId: string, exerciseIds: Exer
   ).populate('exercises');
 };
 
-export async function removeExerciseFromWorkout(workoutId: string, exerciseId: string) {
+export async function removeExerciseFromWorkout(workoutId: string, exerciseId: ExerciseId) {
   await dbConnect();
   return WorkoutModel.findByIdAndUpdate(
     workoutId,
-    { $pull: { exercises: { _id: exerciseId } } },
-    { new: true }
-  );
+    {
+      $pull: {
+        exercises: exerciseId
+      }
+    },
+    {
+      new: true,
+      runValidators: true
+     }
+  ).populate('exercises');
 };
 

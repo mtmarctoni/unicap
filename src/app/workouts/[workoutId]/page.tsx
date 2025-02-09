@@ -6,8 +6,8 @@ import { SkeletonWorkoutDetail } from '@/components/workout/SkeletonWorkoutDetai
 import ExerciseList from '@/components/exercise/ExerciseList';
 import { PlusIcon, ClockIcon, ChartBarIcon, CheckIcon } from '@heroicons/react/24/outline';
 import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
-import ExerciseCard from '@/components/exercise/ExerciseCard';
 import Calendar from '@/components/workout/ExerciseCalendar';
+import ExerciseListItem from '@/components/exercise/ExerciseListItem';
 
 export default function WorkoutDetailPage() {
     const { workoutId } = useParams();
@@ -24,7 +24,7 @@ export default function WorkoutDetailPage() {
                 .then(response => response.json())
                 .then(data => setWorkout(data));
         }
-    }, [workoutId]);
+    }, [workoutId, setWorkout]);
 
     const fetchExercises = () => {
         fetch('/api/exercises')
@@ -37,7 +37,7 @@ export default function WorkoutDetailPage() {
             const response = await fetch(`/api/workouts/${workoutId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ exercises: selectedExercises })
+                body: JSON.stringify({ exerciseIds: selectedExercises })
             });
 
             if (response.ok) {
@@ -50,6 +50,25 @@ export default function WorkoutDetailPage() {
             console.error('Error adding exercises:', error);
         }
     };
+
+    const handleRemoveExercise = async (exerciseId: ExerciseId) => {
+        console.log('remove exercise');
+        try {
+            const response = await fetch(`/api/workouts/${workoutId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ exerciseId })
+            });
+        
+            if (response.ok) {
+                const updatedWorkout = await response.json();
+                setWorkout(updatedWorkout);
+            }
+          } catch (error) {
+            console.error('Error removing exercise from workout:', error);
+          }
+        
+    }
 
 // Prepare exercise data for the calendar.  Use a type-safe approach.
         const exercisesByDay: ExerciseByDay = {
@@ -144,7 +163,9 @@ export default function WorkoutDetailPage() {
                 {/* {workout.exercises.length > 0 ? ( */}
                 {filteredExercises.length > 0 ? (
                     // <ExerciseList exercises={workout.exercises} />
-                    <ExerciseList exercises={filteredExercises} />
+                <ExerciseList exercises={filteredExercises}
+                    handleRemove={handleRemoveExercise}
+                />
                 ) : (
                     <div className="text-center py-12">
                         <p className="text-muted mb-4">
@@ -170,7 +191,7 @@ export default function WorkoutDetailPage() {
             >
                 <div className="fixed inset-0 bg-black/30 backdrop-blur-sm">
                     <div className="flex min-h-full items-center justify-center p-4">
-                        <DialogPanel className="w-full max-w-3xl rounded-2xl bg-surface dark:bg-surface-dark p-6">
+                        <DialogPanel className="w-full max-w-3xl rounded-2xl bg-surface p-6">
                             <DialogTitle className="text-2xl font-bold mb-6">
                                 Select Exercises
                             </DialogTitle>
@@ -179,10 +200,10 @@ export default function WorkoutDetailPage() {
                                 {allExercises.map(exercise => (
                                     <label
                                         key={exercise.id}
-                                        className={`flex items-center gap-4 p-4 rounded-lg cursor-pointer ${
+                                        className={`flex items-center w-full gap-4 px-4 py-2 rounded-lg cursor-pointer ${
                                             selectedExercises.includes(exercise.id)
                                                 ? 'bg-primary/10 border-2 border-primary'
-                                                : 'bg-background-alt hover:bg-background-alt-dark'
+                                                : 'bg-background hover:bg-background-alt'
                                         }`}
                                     >
                                         <input
@@ -196,7 +217,8 @@ export default function WorkoutDetailPage() {
                                             }}
                                             className="w-5 h-5 text-primary focus:ring-primary"
                                         />
-                                        <ExerciseCard exercise={exercise} />
+                                        {/* <ExerciseCard exercise={exercise} /> */}
+                                        <ExerciseListItem exercise={exercise} />
                                     </label>
                                 ))}
                             </div>

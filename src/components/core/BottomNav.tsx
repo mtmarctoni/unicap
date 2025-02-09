@@ -30,7 +30,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-surface border-t border-muted/20">
+    <nav className="fixed bottom-0 left-0 right-0 bg-surface border-t border-muted/20 z-20">
       <div className="max-w-2xl mx-auto px-16">
         <div className="flex justify-between items-center py-3">
           {routes.map((route) => {

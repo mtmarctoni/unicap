@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import '@/lib/models/Exercise'
 import '@/lib/models/Workout'
-import { addExercisesToWorkout, getWorkoutById } from '@/lib/workoutOperationsDB';
+import { addExercisesToWorkout, getWorkoutById, removeExerciseFromWorkout } from '@/lib/workoutOperationsDB';
+import { ExerciseId } from '@/types/workout';
 
 export async function GET(
   request: Request,
@@ -35,10 +36,10 @@ export async function POST(
     const {workoutId} = await params;
     
     try {
-        const { exercises } = await req.json();
-        console.log('a cambiar: ', exercises);
+        const data = await req.json();
+        const exerciseIds: ExerciseId[] = data.exerciseIds as ExerciseId[];
         
-        const updatedWorkout = await addExercisesToWorkout(workoutId, exercises);
+        const updatedWorkout = await addExercisesToWorkout(workoutId, exerciseIds);
         console.log('ejercicios añadido: ', updatedWorkout);
         
 
@@ -50,3 +51,25 @@ export async function POST(
         );
     }
 }
+
+export async function DELETE(
+    req: Request,
+    { params }: { params: { workoutId: string } }
+) {
+    const {workoutId} = await params;
+    
+    try {
+        const data = await req.json();
+        const exerciseId: ExerciseId = data.exerciseId as ExerciseId;
+        
+        const updatedWorkout = await removeExerciseFromWorkout(workoutId, exerciseId);
+
+        return NextResponse.json(updatedWorkout);
+    } catch (error) {
+        return NextResponse.json(
+            { error: 'Failed to remove exercises' },
+            { status: 500 }
+        );
+    }
+    
+  }

@@ -88,7 +88,7 @@ export default function ExercisePageDetail() {
           <div className="aspect-video relative">
             <Image
               src={exercise.imageUrl || DEFAULT_IMAGE_URL}
-              alt={exercise.name}
+              alt={exercise.name || 'Default exercise image'}
               fill
               className="rounded-t-2xl object-cover"
             />
