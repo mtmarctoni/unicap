@@ -1,7 +1,6 @@
 import { createExercise, deleteExercise, getAllExercises } from "@/lib/exerciseOperationsDB";
-import { NewExercise, type Exercise } from "@/types/workout";
-import { NextApiRequest } from "next";
-import { NextRequest, NextResponse } from "next/server";
+import { NewExercise } from "@/types/workout";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
@@ -29,7 +28,7 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request, response: NextResponse) {
+export async function POST(request: Request) {
     const req = await request.json();
     const newExercise: NewExercise = req as NewExercise;
   try {
@@ -48,7 +47,7 @@ export async function POST(request: Request, response: NextResponse) {
   }
 }
 
-export async function DELETE(request: Request, response: NextResponse) {
+export async function DELETE(request: Request) {
     const req = await request.json();
     const id: string = req.id as string;
     try {

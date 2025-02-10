@@ -1,8 +1,6 @@
 import dbConnect from '@/lib/mongodb';
 import WorkoutModel from '@/lib/models/Workout';
-import ExerciseModel from '@/lib/models/Exercise';
 import { type ExerciseId, type Workout } from '@/types/workout';
-import mongoose from 'mongoose';
 
 // Database Operations
 export async function getAllWorkouts() {

@@ -1,5 +1,4 @@
 import { Exercise, ExerciseByDay, WorkoutDay } from "@/types/workout";
-import { useState } from "react";
 
 interface Props {
     selectedDay: WorkoutDay | null;

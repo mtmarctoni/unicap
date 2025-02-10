@@ -5,8 +5,8 @@ import { addExercisesToWorkout, getWorkoutById, removeExerciseFromWorkout } from
 import { ExerciseId } from '@/types/workout';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { workoutId: string } }
+    request: Request,
+    { params }: { params: Promise<{ workoutId: string }> }
 ) {
   const {workoutId} = await params;
 
@@ -31,7 +31,7 @@ export async function GET(
 
 export async function POST(
     req: Request,
-    { params }: { params: { workoutId: string } }
+    { params }: { params: Promise<{ workoutId: string }> }
 ) {
     const {workoutId} = await params;
     
@@ -46,7 +46,7 @@ export async function POST(
         return NextResponse.json(updatedWorkout);
     } catch (error) {
         return NextResponse.json(
-            { error: 'Failed to add exercises' },
+            { error: `Failed to add exercises: ${error}` },
             { status: 500 }
         );
     }
@@ -54,7 +54,7 @@ export async function POST(
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { workoutId: string } }
+    { params }: { params: Promise<{ workoutId: string }> }
 ) {
     const {workoutId} = await params;
     
@@ -67,7 +67,7 @@ export async function DELETE(
         return NextResponse.json(updatedWorkout);
     } catch (error) {
         return NextResponse.json(
-            { error: 'Failed to remove exercises' },
+            { error: `Failed to add exercises: ${error}` },
             { status: 500 }
         );
     }

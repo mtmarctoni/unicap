@@ -1,4 +1,4 @@
-import DarkThemeToggle from "../components/features/DarkThemeToggle";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -7,7 +7,12 @@ export default function Home() {
         <p className="text-primary">
 
         in progess...
-        Go to /workout
+          Go to /workouts
+          <button>
+            <Link href="/workouts">
+            WORKOUTS
+            </Link>
+          </button>
         </p>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">

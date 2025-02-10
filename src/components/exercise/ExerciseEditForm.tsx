@@ -1,7 +1,7 @@
 // components/ExerciseForm.tsx
 'use client';
 import { useState, useEffect } from 'react';
-import { type NewExercise, type Exercise, WorkoutDay } from '@/types/workout';
+import { type NewExercise, WorkoutDay } from '@/types/workout';
 import Image from 'next/image';
 import { BoltIcon, CheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import { DEFAULT_IMAGE_URL } from '@/config/default.config';

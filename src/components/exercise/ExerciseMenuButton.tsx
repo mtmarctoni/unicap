@@ -1,4 +1,4 @@
-import { ArchiveBoxXMarkIcon, EllipsisVerticalIcon, PencilIcon, Square2StackIcon, TrashIcon } from '@heroicons/react/20/solid'
+import { EllipsisVerticalIcon, PencilIcon, Square2StackIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 import { Exercise, NewExercise } from '@/types/workout';
@@ -31,13 +31,8 @@ const ExerciseMenuButton = ({exercise, handleDelete, handleEdit, handleDuplicate
                     <MenuItem>
                         <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-primary-light"
                             onClick={() => {
+                                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                 const { id, ...newExercise } = exercise;
-                                // const newExercise: NewExercise = {
-                                //     name: exercise.name,
-                                //     sets: exercise.sets,
-                                //     reps: exercise.reps,
-                                //     weight: exercise.weight
-                                // }
                                 return handleDuplicate(newExercise);
                             }}
                         >

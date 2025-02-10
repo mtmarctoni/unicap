@@ -70,6 +70,7 @@ export default function ExercisePageDetail() {
 
     if (!exercise) return <div>Loading...</div>;
     
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...newExercise } = exercise;
  
     return (

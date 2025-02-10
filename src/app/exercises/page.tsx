@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { PlusIcon } from '@heroicons/react/20/solid';
 
 import ExerciseList from '@/components/exercise/ExerciseList';
 import ExerciseForm from '@/components/exercise/ExerciseForm';

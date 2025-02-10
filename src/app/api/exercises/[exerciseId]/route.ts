@@ -3,22 +3,23 @@ import '@/lib/models/Exercise';
 import '@/lib/models/Workout';
 import dbConnect from '@/lib/mongodb';
 import { deleteExercise, getExerciseById, updateExercise } from '@/lib/exerciseOperationsDB';
+import { ExerciseId } from '@/types/workout';
 
-export async function GET(request: Request, { params }: { params: { exerciseId: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ exerciseId: ExerciseId }> }) {
     await dbConnect();
     const { exerciseId } = await params;
-  const exercise = await getExerciseById(exerciseId);
-  return NextResponse.json(exercise);
+    const exercise = await getExerciseById(exerciseId);
+    return NextResponse.json(exercise);
 };
 
-export async function DELETE(request: Request, { params }: { params: { exerciseId: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ exerciseId: ExerciseId }> }) {
     await dbConnect();
     const { exerciseId } = await params;
     const exercise = await deleteExercise(exerciseId);
     return NextResponse.json(exercise);
 };
 
-export async function PUT(request: Request, { params }: { params: { exerciseId: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ exerciseId: ExerciseId }> }) {
     await dbConnect();
     
     const { exerciseId } = await params;
