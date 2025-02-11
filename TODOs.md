@@ -1,6 +1,8 @@
 PRIMARIES
 - in workouts, enable to delete exercises (add 'remove from workout' option in the menu)
 - refactor [workoutId] page, extract the dialog and extract the logic with custom hook
+- close Create Exerciae Form when submitting or/and show notification
+- add filter when to search exercise, in every exercise list
 
 
 SECONDARIES
