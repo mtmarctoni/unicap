@@ -16,7 +16,7 @@ Unicap is a web application designed to manage workout routines. It provides use
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/unicap.git
+   git clone https://github.com/mtmarctoni/unicap.git
    ```
 2. Navigate to the project directory:
    ```bash
