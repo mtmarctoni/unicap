@@ -99,23 +99,11 @@ export default function ExercisesPage() {
                     >
                           <PlusIcon className="w-6 h-6 mr-2" stroke="currentColor" />
                           Create Exercise                               
-                    {/* 
-                      {isFormOpen
-                          ? <>
-                          <XMarkIcon className="w-6 h-6 mr-2" stroke="currentColor" />
-                          Close Form                              
-                          </>
-                          : <>
-                          <PlusIcon className="w-6 h-6 mr-2" stroke="currentColor" />
-                          Add Exercise                              
-                          </>
-                          } 
-                           */}
           </button>
                           }
           </div>
       
-          {/* Exercise Form */}.
+          {/* Exercise Form */}
                 <div
                     className={`m-8 transition-all duration-500 ease-in-out ${isFormOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
                 >

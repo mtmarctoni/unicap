@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "gitpush": "git add . && git commit -m quickUpdate && git push"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^4.0.0",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/postcss": "^4.0.1",

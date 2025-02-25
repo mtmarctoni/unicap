@@ -2,6 +2,13 @@ PRIMARIES
 - show the bottom navbar only in the workout app (/workouts or /exercises path)
 - in workouts, enable to delete exercises (add 'remove from workout' option in the menu)
 - refactor [workoutId] page, extract the dialog and extract the logic with custom hook
+- add filter to search exercises by name
+- close Exercise Form when create a exercise
+- add notifications (create, edit, remove... every action)
+- add authentication with auth0_
+    - if not 'session' go to '/'
+    - add login/logout in '/settings'
+    - add user info in '/settings' and in navbar
 
 
 SECONDARIES
